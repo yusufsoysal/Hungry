@@ -1,12 +1,14 @@
 package com.yusufsoysal.slack.hungry.controller;
 
 import com.yusufsoysal.slack.hungry.Application;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,6 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -44,7 +49,7 @@ public class LunchPlaceControllerTest {
         defaultParameters.add("user_id", "U2147483697");
         defaultParameters.add("user_name", "Steve");
         defaultParameters.add("command", "/lunch");
-        defaultParameters.add("text", "12345");
+        defaultParameters.add("text", "Option1, Option2, Option3 at 12:00pm");
         defaultParameters.add("response_url", "https://hooks.slack.com/commands/1234/5678");
     }
 
@@ -61,7 +66,16 @@ public class LunchPlaceControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/lunch").params(defaultParameters))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 
+    @Test
+    public void shouldReturnJsonMessage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/lunch").params(defaultParameters))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.text").exists())
+                .andExpect(jsonPath("$.attachments").exists())
+                .andExpect(jsonPath("$.attachments[0].text").exists());
     }
 
 }
