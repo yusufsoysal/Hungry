@@ -1,8 +1,8 @@
 package com.yusufsoysal.slack.hungry.model;
 
 public class RequestTextTuple {
-    private String places;
-    private String date;
+    private final String places;
+    private final String date;
 
     public RequestTextTuple(String places, String date) {
         this.places = places;

@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 @Service
 public class RequestService {
 
-    public static final String DATETIME_SEPARATOR = " at ";
+    private static final String DATETIME_SEPARATOR = " at ";
 
     public LunchModel processText(String text) {
         RequestTextTuple requestTextTuple = parseText(text);
@@ -46,15 +46,12 @@ public class RequestService {
 
         Predicate<String> empty = String::isEmpty;
 
-        List<String> places = Stream.of(requestTextTuple.getPlaces())
+        return Stream.of(requestTextTuple.getPlaces())
                 .map(theText -> theText.replaceAll("^\"", ""))
                 .map(theText -> theText.split("\"?(,|$)(?=(([^\"]*\"){2})*[^\"]*$) *\"?"))
                 .flatMap(Arrays::stream)
                 .map(String::trim)
                 .filter(empty.negate())
                 .collect(Collectors.toList());
-
-
-        return places;
     }
 }

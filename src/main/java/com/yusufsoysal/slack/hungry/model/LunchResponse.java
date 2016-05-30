@@ -8,14 +8,14 @@ import java.util.Map;
 public class LunchResponse implements Serializable {
 
     public static final long serialVersionUID = 1L;
-    public static final String RESPONSE_IN_CHANNEL = "in_channel";
-    public static final String MARKDOWN_PLACES = "mrkdwn_in";
-    public static final String ATTACHMENT_TEXT = "text";
+    private static final String RESPONSE_IN_CHANNEL = "in_channel";
+    private static final String MARKDOWN_PLACES = "mrkdwn_in";
+    private static final String ATTACHMENT_TEXT = "text";
 
     private String responseType = RESPONSE_IN_CHANNEL;
-    private String text;
+    private final String text;
 
-    private Map<String, Object> attachments = new HashMap<>();
+    private final Map<String, Object> attachments = new HashMap<>();
 
     public LunchResponse(String mainText, String attachmentText) {
         this.text = mainText;

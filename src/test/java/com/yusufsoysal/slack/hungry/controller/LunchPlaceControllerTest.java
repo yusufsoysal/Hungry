@@ -1,7 +1,6 @@
 package com.yusufsoysal.slack.hungry.controller;
 
 import com.yusufsoysal.slack.hungry.Application;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,7 @@ public class LunchPlaceControllerTest {
     public void before(){
         mockMvc = MockMvcBuilders.standaloneSetup( controller ).build();
 
-        defaultParameters = new LinkedMultiValueMap();
+        defaultParameters = new LinkedMultiValueMap<>();
         defaultParameters.add("token", slackToken);
         defaultParameters.add("team_id", "T0001");
         defaultParameters.add("team_domain", "example");

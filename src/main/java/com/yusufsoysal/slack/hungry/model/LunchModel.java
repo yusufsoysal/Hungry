@@ -3,11 +3,10 @@ package com.yusufsoysal.slack.hungry.model;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 public class LunchModel {
-    private List<String> places;
-    private String date;
+    private final List<String> places;
+    private final String date;
 
     public LunchModel(List<String> places, String date) {
         this.places = places;
