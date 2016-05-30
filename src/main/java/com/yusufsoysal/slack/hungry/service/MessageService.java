@@ -9,7 +9,6 @@ import java.util.Locale;
 @Service
 public class MessageService {
 
-
     @Autowired
     private MessageSource messageSource;
 

@@ -22,7 +22,6 @@ public class ResponseCreatorService {
             ":cloud:"
     };
 
-
     @Autowired
     private MessageService messageService;
 

@@ -1,6 +1,7 @@
 package com.yusufsoysal.slack.hungry.controller;
 
 import com.yusufsoysal.slack.hungry.Application;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,8 +74,18 @@ public class LunchPlaceControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.text").exists())
+                .andExpect(jsonPath("$.text").value( Matchers.equalTo("Ready for Lunch?") ))
                 .andExpect(jsonPath("$.attachments").exists())
-                .andExpect(jsonPath("$.attachments[0].text").exists());
+                .andExpect(jsonPath("$.attachments.text").exists())
+                .andExpect(jsonPath("$.attachments.text").value( Matchers.equalTo("*Offered by*  : @Steve\n*Where*  : :earth_africa: Option1  :full_moon: Option2  :zap: Option3  \n*When*  : 12:00pm\n") ));
+    }
+
+    @Test
+    public void shouldReturnHttpBadRequestWhenNoValidPlaceIsFound() throws Exception {
+        defaultParameters.set("text", "  ");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/lunch").params(defaultParameters))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }
