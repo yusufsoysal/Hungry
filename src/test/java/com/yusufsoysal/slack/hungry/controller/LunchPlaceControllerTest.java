@@ -75,9 +75,9 @@ public class LunchPlaceControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.text").exists())
                 .andExpect(jsonPath("$.text").value( Matchers.equalTo("Ready for Lunch?") ))
-                .andExpect(jsonPath("$.attachments").exists())
-                .andExpect(jsonPath("$.attachments.text").exists())
-                .andExpect(jsonPath("$.attachments.text").value( Matchers.equalTo("*Offered by*  : @Steve\n*Where*  : :earth_africa: Option1  :full_moon: Option2  :zap: Option3  \n*When*  : 12:00pm\n") ));
+                .andExpect(jsonPath("$.attachments[0]").exists())
+                .andExpect(jsonPath("$.attachments[0].text").exists())
+                .andExpect(jsonPath("$.attachments[0].text").value( Matchers.equalTo("*Offered by*  : @Steve\n*Where*  : :earth_africa: Option1  :full_moon: Option2  :zap: Option3  \n*When*  : 12:00pm\n") ));
     }
 
     @Test

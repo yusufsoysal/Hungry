@@ -5,17 +5,23 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.Assert.assertThat;
 
 public class LunchResponseTest {
 
     @Test
     public void shouldAddTextAndMarkdownInfoIntoAttachments(){
         LunchResponse response = new LunchResponse("MainText", "AttachmentText");
-        Map<String, Object> attachments = response.getAttachments();
+        List<Map<String, Object>> attachments = response.getAttachments();
 
-        Assert.assertThat(attachments, Matchers.hasEntry("text", "AttachmentText"));
-        Assert.assertThat(attachments, Matchers.hasEntry("mrkdwn_in", Arrays.asList("text")));
+        assertThat(attachments.size(), equalTo(1));
+        assertThat(attachments.get(0), hasEntry("text", "AttachmentText"));
+        assertThat(attachments.get(0), hasEntry("mrkdwn_in", Arrays.asList("text")));
     }
 
 }

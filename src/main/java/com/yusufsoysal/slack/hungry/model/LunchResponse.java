@@ -3,6 +3,7 @@ package com.yusufsoysal.slack.hungry.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LunchResponse implements Serializable {
@@ -36,8 +37,8 @@ public class LunchResponse implements Serializable {
         return text;
     }
 
-    public Map<String, Object> getAttachments(){
-        return attachments;
+    public List<Map<String, Object>> getAttachments(){
+        return Arrays.asList(attachments);
     }
 
 }

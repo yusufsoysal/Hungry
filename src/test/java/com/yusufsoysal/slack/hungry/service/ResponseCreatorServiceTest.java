@@ -14,6 +14,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 
+import static org.hamcrest.collection.IsMapContaining.hasEntry;
+import static org.junit.Assert.assertThat;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ResponseCreatorServiceTest {
 
@@ -38,7 +41,7 @@ public class ResponseCreatorServiceTest {
 
         LunchResponse lunchResponse = service.buildLunchResponse(slackRequest, lunchModel);
 
-        Assert.assertThat(lunchResponse.getAttachments(), IsMapContaining.hasEntry("text", "OfferedBy\nEventPlaces\nEventDate\n"));
+        assertThat(lunchResponse.getAttachments().get(0), hasEntry("text", "OfferedBy\nEventPlaces\nEventDate\n"));
     }
 
     @Test
@@ -55,7 +58,7 @@ public class ResponseCreatorServiceTest {
 
         LunchResponse lunchResponse = service.buildLunchResponse(slackRequest, lunchModel);
 
-        Assert.assertThat(lunchResponse.getAttachments(), IsMapContaining.hasEntry("text", "OfferedBy\nEventPlaces\n"));
+        assertThat(lunchResponse.getAttachments().get(0), hasEntry("text", "OfferedBy\nEventPlaces\n"));
     }
 
     @Test
@@ -72,7 +75,7 @@ public class ResponseCreatorServiceTest {
 
         LunchResponse lunchResponse = service.buildLunchResponse(slackRequest, lunchModel);
 
-        Assert.assertThat(lunchResponse.getAttachments(), IsMapContaining.hasEntry("text", "OfferedBy\nEventPlaces\n"));
+        assertThat(lunchResponse.getAttachments().get(0), hasEntry("text", "OfferedBy\nEventPlaces\n"));
     }
 
 }
